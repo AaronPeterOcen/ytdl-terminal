@@ -65,6 +65,8 @@ The resulting file will include both video and audio in a single mp4 file.
 1.    Audio Inclusion: The script automatically appends +140 to the selected video format to ensure the best audio is downloaded and merged with the video.
 2.    Merged Output: The merged file is output in the mp4 format for compatibility with most devices and players.
 3.    Supported Sites: This script works with all websites supported by yt-dlp, including YouTube, Vimeo, and others.
+4. Please update the yt-dlp that is needed for this script to run as it will throw an error if it is not update.
 
 ## Contributing
     Feel free to fork this repository and submit pull requests if you'd like to improve or add features to the script.
+    
