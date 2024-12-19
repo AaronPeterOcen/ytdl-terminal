@@ -19,6 +19,8 @@
 1. **Ensure `yt-dlp` is Installed**: 
    The script checks if `yt-dlp` is already installed. If not, it will prompt you with a link to install it:
    - Follow the instructions on the [yt-dlp GitHub page](https://github.com/yt-dlp/yt-dlp).
+   - Please make sure you update 'yt-dlp' if you have it already installed otherwise you will run into some errors
+   
 
 2. **Save the Script**:
    Download or copy the script and save it as `ytdl`.
