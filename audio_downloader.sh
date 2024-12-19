@@ -16,12 +16,12 @@ if ! command -v ffmpeg &> /dev/null; then
     exit 1
 fi
 
-# Download the highest quality audio
-echo "Downloading the highest quality audio..."
-yt-dlp -f bestaudio --extract-audio --audio-format best --audio-quality 0 -o "%(title)s.%(ext)s" "$URL"
+# Download the highest quality audio and convert to MP3
+echo "Downloading the highest quality audio as MP3..."
+yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 -o "%(title)s.%(ext)s" "$URL"
 
 if [ $? -eq 0 ]; then
-    echo "Audio downloaded successfully!"
+    echo "Audio downloaded successfully in MP3 format!"
 else
     echo "An error occurred during the download."
 fi
