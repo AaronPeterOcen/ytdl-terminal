@@ -1,74 +1,82 @@
-# ytdl-terminal
+# Video Downloader Script
 
-`ytdl-terminal` is a simple Bash script that facilitates downloading videos (along with audio) using `yt-dlp`. The script provides an interactive terminal-based experience where you can select the desired video quality, and it ensures the best audio is always downloaded and merged with your chosen video.
+This is a Bash script that allows you to download videos using `yt-dlp`. It prompts the user for a video URL, displays available formats, and lets the user choose the desired format for downloading.
 
-## Features
+## Prerequisites
 
-- **Format Selection**: Lets you choose the desired video quality from the available options.
-- **Audio Merging**: Automatically includes the best audio (`140` format) when downloading the selected video format.
-- **Installation Check**: Validates whether `yt-dlp` is installed; if not, it provides a link to the official repository.
-- **Easy Merging**: Ensures video and audio are merged into a single `mp4` file for compatibility.
+Before using this script, ensure you have the following installed:
 
-## Requirements
+1. **`yt-dlp`**: A powerful command-line tool for downloading videos from various platforms like YouTube, Vimeo, and more.
+   - Installation instructions: [yt-dlp GitHub](https://github.com/yt-dlp/yt-dlp)
+   - You can install it using `pip`:
+     ```bash
+     pip install -U yt-dlp
+     ```
 
-- **yt-dlp**: The script depends on `yt-dlp` for downloading videos and merging audio.
-- **Bash**: A Bash shell is required to run the script (supported on Linux and macOS).
+2. **Bash**: This script is written for Unix-based systems (Linux, macOS). Ensure you have Bash installed.
 
-## Installation Instructions
+---
 
-1. **Ensure `yt-dlp` is Installed**: 
-   The script checks if `yt-dlp` is already installed. If not, it will prompt you with a link to install it:
-   - Follow the instructions on the [yt-dlp GitHub page](https://github.com/yt-dlp/yt-dlp).
-   - Please make sure you update 'yt-dlp' if you have it already installed otherwise you will run into some errors
-   
+## How to Use the Script
 
-2. **Save the Script**:
-   Download or copy the script and save it as `ytdl`.
+1. **Download the Script**:
+   - Save the script to a file, e.g., `video_downloader.sh`.
+   - Make the script executable:
+     ```bash
+     chmod +x video_downloader.sh
+     ```
 
-3. **Make the Script Executable**:
-   Run the following command to make the script executable:
-   ```bash
-   chmod +x ytdl
+2. **Run the Script**:
+   - Execute the script in your terminal:
+     ```bash
+     ./video_downloader.sh
+     ```
 
-4. **Run the Script: Execute the script with**:
-    ```bash
-    ./ytdl
+3. **Follow the Prompts**:
+   - Enter the URL of the video you want to download.
+   - The script will display a list of available formats (video and audio).
+   - Enter the format code for the quality you want to download.
+   - The script will download the video and save it in the current directory.
 
+---
 
-## How to Use
-    Enter the URL: The script will prompt you to enter the URL of the video you want to download.
+## Example Usage
 
-    Select Format: After fetching the available formats, the script will display them in a list. Enter the format code corresponding to your desired video quality.
-
-    Download: The script will automatically download your chosen video format, merge it with the best available audio, and save it as a single mp4 file.
-
-## Example usage
 ```bash
-    $ ./ytdl
-
-Enter the URL of the video:
-https://www.youtube.com/watch?v=dQw4w9WgXcQ
-
+$ ./video_downloader.sh
+Enter the URL of the video: https://www.youtube.com/watch?v=example
 Fetching available formats...
-[1] 1080p video
-[2] 720p video
-[3] 480p video
-[4] audio-only (m4a)
-
-Enter the format code you want to download:
-1
-
-Downloading the video and audio...
+[youtube] example: Downloading webpage
+[youtube] example: Downloading android player API JSON
+[info] Available formats for example:
+format code  extension  resolution note
+249          webm       audio only tiny   48k , webm_dash
+140          m4a        audio only tiny  128k , m4a_dash
+137          mp4        1920x1080  1080p 4.5M, mp4_dash
+...
+Enter the format code you want to download: 137
+Downloading the video...
+[download] Destination: example_video.mp4
+[download] 100% of 123.45MiB in 00:10
 Download complete!
 ```
-The resulting file will include both video and audio in a single mp4 file.
+## Features
 
-## Notes
-1.    Audio Inclusion: The script automatically appends +140 to the selected video format to ensure the best audio is downloaded and merged with the video.
-2.    Merged Output: The merged file is output in the mp4 format for compatibility with most devices and players.
-3.    Supported Sites: This script works with all websites supported by yt-dlp, including YouTube, Vimeo, and others.
-4. Please update the yt-dlp that is needed for this script to run as it will throw an error if it is not update.
+- **Format Selection**: The script lists all available formats (video and audio) and lets you choose the one you want.
+- **Error Handling**: The script checks for invalid URLs, empty inputs, and failed downloads.
+- **Merge Output**: The script automatically merges video and audio streams into a single `.mp4` file.
 
-## Contributing
-    Feel free to fork this repository and submit pull requests if you'd like to improve or add features to the script.
-    
+---
+
+## Customization
+
+You can modify the script to suit your needs:
+
+- **Default Format**: If you want to download the best quality by default, change the format prompt to:
+  ```bash
+  FORMAT_CODE=${FORMAT_CODE:-"best"}
+
+
+## License
+- This script is open-source and free to use. Feel free to modify and distribute it as needed.
+
