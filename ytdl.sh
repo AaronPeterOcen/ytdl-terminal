@@ -27,23 +27,15 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-# Step 4: Prompt the user to select a format
-echo "Enter the format code you want to download (e.g., 137 for video, 140 for audio):"
-read -r FORMAT_CODE
-
-# Validate the format code
-if [[ -z "$FORMAT_CODE" ]]; then
-    echo "Format code cannot be empty. Exiting."
-    exit 1
-fi
-
-# Step 5: Download the video with the selected format
-echo "Downloading the video..."
-yt-dlp -f "$FORMAT_CODE" "$URL" --merge-output-format mp4
+# Step 4: Download the best video and best audio, then merge them
+echo "Downloading the best available video and audio..."
+yt-dlp -f "bv*+ba/b" "$URL" --merge-output-format mp4
 
 # Check if the download was successful
 if [[ $? -eq 0 ]]; then
     echo "Download complete!"
 else
-    echo "Download failed. Please check the format code and try again."
+    echo "Download failed. Please try again."
+    exit 1
 fi
+
