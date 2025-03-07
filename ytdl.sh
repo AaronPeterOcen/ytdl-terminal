@@ -27,9 +27,27 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-# Step 4: Download the best video and best audio, then merge them
-echo "Downloading the best available video and audio..."
-yt-dlp -f "bv*+ba/b" "$URL" --merge-output-format mp4
+# Step 4: Ask the user to choose a video format
+echo "Enter the format code for the video you want to download:"
+read -r VIDEO_FORMAT
+
+# Validate the video format selection
+if [[ -z "$VIDEO_FORMAT" ]]; then
+    echo "Video format cannot be empty. Exiting."
+    exit 1
+fi
+
+# Step 5: Automatically select the best audio format
+BEST_AUDIO_FORMAT=$(yt-dlp -F "$URL" | awk '/audio only/ {print $1}' | tail -1)
+
+if [[ -z "$BEST_AUDIO_FORMAT" ]]; then
+    echo "No audio format found. Exiting."
+    exit 1
+fi
+
+# Step 6: Download the selected video format with the best audio
+echo "Downloading video (format $VIDEO_FORMAT) and best audio (format $BEST_AUDIO_FORMAT)..."
+yt-dlp -f "${VIDEO_FORMAT}+${BEST_AUDIO_FORMAT}" "$URL" --merge-output-format mp4
 
 # Check if the download was successful
 if [[ $? -eq 0 ]]; then
